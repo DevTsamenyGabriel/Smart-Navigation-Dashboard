@@ -53,29 +53,13 @@ Touchscreens and manual inputs are one of the leading causes of in-vehicle drive
 
 ## 🔄 System Architecture
 
-```
-User Voice Command
-        │
-        ▼
- Whisper Flow AI  ──►  Parsed Action Intent (ACTION, TARGET, LAYER)
-        │
-        ▼
- PyQt6 / QWebChannel Bridge
-        │
-        ▼
- JavaScript Map Bridge API
-        │
-        ▼
- Dynamic Map / UI Update
-```
+<p align="center"> <img src="git_images/architecture.png" alt="System Architecture" width="55%"> </p>
 
-**Component breakdown:**
+Component breakdown:
 
-- **Voice Capture & Intent Parsing (Whisper Flow AI)** — captures speech in real time, transcribes it, and extracts structured intent parameters.
-- **Application Controller (`main.py`)** — the PyQt6 core process; coordinates background threads, manages API calls, and routes parsed voice intents to the view layer.
-- **Map & View Engine (`map.html` + JavaScript)** — exposes global bridge functions (`window.panToLocation()`, `window.toggleTrafficLayer()`, `window.setZoom()`) that Python calls directly through `QWebChannel`, keeping voice input and map rendering fully decoupled.
-
----
+Voice Capture & Intent Parsing (Whisper Flow AI) — captures speech in real time, transcribes it, and extracts structured intent parameters.
+Application Controller (main.py) — the PyQt6 core process; coordinates background threads, manages API calls, and routes parsed voice intents to the view layer.
+Map & View Engine (map.html + JavaScript) — exposes global bridge functions (window.panToLocation(), window.toggleTrafficLayer(), window.setZoom()) that Python calls directly through QWebChannel, keeping voice input and map rendering fully decoupled.
 
 ## 📸 Interface Gallery
 
