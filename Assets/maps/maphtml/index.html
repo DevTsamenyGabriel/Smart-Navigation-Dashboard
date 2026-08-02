@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* --- SPINNER CSS --- */
+    body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #1a0b2e; /* Matches your theme to prevent white flash */
+    }
+
+    #loader-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(26, 11, 46, 0.9); /* Dark semi-transparent purple */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999; /* Stays on top of everything */
+        transition: opacity 0.8s ease;
+    }
+
+    .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid rgba(168, 85, 247, 0.2);
+        border-top: 5px solid #a855f7; /* Your Purple */
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+        margin-top: 20px;
+        color: #a855f7;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        letter-spacing: 2px;
+        font-size: 12px;
+        text-transform: uppercase;
+        animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loader-container">
+    <div class="spinner"></div>
+    <div class="loading-text">Initializing Satellite Uplink...</div>
+  </div>
+
+  <div id="search-island" class="collapsed" role="search" aria-label="Search cities">
+    <input id="searchInput" placeholder="Search cities, e.g. Accra" aria-label="Search cities" autocomplete="off" />
+    <ul id="searchResults" role="listbox" aria-label="Search results" hidden></ul>
+  </div>
+
+  <div id="panel">
+    <h3>Directions (Pick on map)</h3>
+    <div class="row">
+      <b>Mode</b>
+      <div class="modes" role="tablist" aria-label="Travel mode">
+        <button class="mode-btn active" data-profile="driving" aria-pressed="true" title="Driving">
+          <svg class="mode-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 13.5V8.5C3 7.39543 3.89543 6.5 5 6.5H19C20.1046 6.5 21 7.39543 21 8.5V13.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M5 16.5V15.5C5 14.3954 5.89543 13.5 7 13.5H17C18.1046 13.5 19 15.5V16.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="7.5" cy="17.5" r="1.5" fill="currentColor"/>
+            <circle cx="16.5" cy="17.5" r="1.5" fill="currentColor"/>
+          </svg>
+          <div class="mode-label">Driving</div>
+        </button>
+        </div>
+
+         <button class="mode-btn" data-profile="walking" aria-pressed="false" title="Walking">
+          <!-- walking SVG -->
+          <svg class="mode-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 5.5C13 6.32843 12.3284 7 11.5 7C10.6716 7 10 6.32843 10 5.5C10 4.67157 10.6716 4 11.5 4C12.3284 4 13 4.67157 13 5.5Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8.5 18L10 13.5L13.5 11L15 12.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7 11.5L8.5 12.5L9 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="mode-label">Walking</div>
+        </button>
+
+        <button class="mode-btn" data-profile="cycling" aria-pressed="false" title="Cycling">
+          <!-- bike SVG -->
+          <svg class="mode-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="6.5" cy="16.5" r="2" stroke="currentColor" stroke-width="1.2"/>
+            <circle cx="17.5" cy="16.5" r="2" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M8.5 16.5L11 11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M11 11H14L16 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M7 9.5H9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <div class="mode-label">Cycling</div>
+        </button>
+
+    </div>
+
+
+
+
+
+    <div class="row">
+        <button id="pickOrigin" class="primary ORIGIN">Pick Origin</button>
+        <button id="pickDest" class="primary DESTINATION">Pick Destination</button>
+        <button id="clear">Clear</button>
+      </div>
+  
+      <div id="status">
+        Click <b>Pick Origin</b> then click on the map.
+        Then click <b>Pick Destination</b> and click the destination.
+      </div>
+  
+      <div id="summary" style="display:none;"></div>
+      <div id="routes"></div>
+      <div id="instructions"></div>
+  </div>
+
+  <div id="map"></div>
+
+  <script src="script.js" defer></script>
+
+  <script>
+    // This waits for the Mapbox 'idle' event (everything loaded)
+    // You need to make sure 'map' is defined in your script.js
+    window.addEventListener('load', () => {
+        // We use a small interval to check if 'map' has been initialized by script.js
+        const checkMap = setInterval(() => {
+            if (typeof map !== 'undefined') {
+                map.on('idle', () => {
+                    const loader = document.getElementById('loader-container');
+                    if (loader) {
+                        loader.style.opacity = '0';
+                        setTimeout(() => {
+                            loader.style.display = 'none';
+                        }, 800);
+                    }
+                });
+                clearInterval(checkMap);
+            }
+        }, 100);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>853</width>
+    <height>563</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="minimumSize">
+    <size>
+     <width>853</width>
+     <height>563</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>853</width>
+     <height>563</height>
+    </size>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item row="0" column="0">
+     <widget class="QFrame" name="Splashframe">
+      <property name="minimumSize">
+       <size>
+        <width>853</width>
+        <height>563</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>853</width>
+        <height>563</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#Splashframe{
+
+ border-image: url(&quot;C:/Users/gabby/Documents/Designer_UIS/LearningProgressBar/SplashsScreen/images/teslastyleimage.jpeg&quot;);
+
+}
+</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>0</y>
+         <width>791</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Gadugi</family>
+         <pointsize>15</pointsize>
+         <italic>false</italic>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color:rgb(254,121,199);
+background:transparent;</string>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Shadow::Raised</enum>
+       </property>
+       <property name="text">
+        <string>&lt;strong&gt;SMART&lt;/strong&gt; NAVIGATION SYSTEM</string>
+       </property>
+      </widget>
+      <widget class="QProgressBar" name="progressBar">
+       <property name="geometry">
+        <rect>
+         <x>110</x>
+         <y>510</y>
+         <width>731</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QProgressBar {
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle glass border */
+    border-radius: 10px;
+    background-color: rgba(40, 20, 60, 150); /* Dark Deep Purple Track */
+    text-align: center;
+    color: white; /* Progress percentage color */
+    font-weight: bold;
+    height: 20px;
+}
+
+QProgressBar::chunk {
+    /* The &quot;Moving&quot; part - Neon Magenta to Amethyst Gradient */
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, 
+        stop:0 #ff00ff, 
+        stop:1 #8a2be2); 
+    border-radius: 8px; /* Slightly smaller than the main bar for a clean look */
+    margin: 2px; /* Adds a tiny gap between the bar and the border */
+}</string>
+       </property>
+       <property name="value">
+        <number>24</number>
+       </property>
+      </widget>
+      <widget class="QLabel" name="loaderLabel">
+       <property name="geometry">
+        <rect>
+         <x>320</x>
+         <y>530</y>
+         <width>331</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>13</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color:rgb(254,121,199);
+background:transparent;</string>
+       </property>
+       <property name="text">
+        <string>Loading......</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_3">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>540</y>
+         <width>61</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe Fluent Icons</family>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: whitesmoke;</string>
+       </property>
+       <property name="text">
+        <string>©DevKau</string>
+       </property>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
