@@ -18,7 +18,7 @@
 ## 🎥 Video Demonstration
 
 <p align="center">
-  <a href="#" target="_blank">
+  <a href="https://www.youtube.com/watch?v=PaEv8x_rqyY" target="_blank">
     <img src="https://img.shields.io/badge/▶_Watch_Demo-YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Watch on YouTube">
   </a>
 </p>
