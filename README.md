@@ -13,7 +13,7 @@
   <img src="git_images/live_map.png" alt="Smart Navigation Dashboard — Live Map" width="90%" style="border-radius: 10px; box-shadow: 0 4px 14px rgba(0,0,0,0.2);">
 </p>
 
----
+
 
 ## 🎥 Video Demonstration
 
@@ -27,9 +27,7 @@
   <sub>See the hands-free, voice-activated navigation system in action — from spoken command to live map response.</sub>
 </p>
 
-> *(Swap the `#` above for your actual YouTube link once uploaded — see note at the bottom.)*
 
----
 
 ## 💡 Why This Project Exists
 
